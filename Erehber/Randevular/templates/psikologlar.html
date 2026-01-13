@@ -1,0 +1,64 @@
+{% extends 'base.html' %} 
+
+{% load static %} 
+
+{% block title %}
+Psikologlarımız
+{% endblock title %}
+
+
+{% block extra_head %}
+<link href="{% static 'psikologlar.css' %}" rel="stylesheet">
+{% endblock %}
+
+{% block content %}
+<div class="container">
+    <h1 class="page-title">Uzman Psikologlarımız</h1>
+
+    <div class="working-hours">
+        <p><strong>Çalışma Saatleri:</strong> Hafta içi 09:00 - 18:00 | Cumartesi 09:00 - 15:00</p>
+    </div>
+    
+    <div class="psychologist-cards">
+        <!-- Psikolog Kartları -->
+        <div class="psychologist-card">
+            <div class="card-header">
+                <h2>Dr. Ayşe Yılmaz</h2>
+            </div>
+            <div class="card-image placeholder-image">
+                <!-- Profil resmi veya yer tutucu simge -->
+            </div>
+            <div class="card-content">
+                <p><strong>Uzmanlık Alanı:</strong> Çift ve Aile Psikolojisi</p>
+                <p class="education"><strong>Mezuniyet:</strong> Boğaziçi Üniversitesi (Lisans), İstanbul Üniversitesi (Yüksek Lisans)</p>
+            </div>
+        </div>
+
+        <div class="psychologist-card">
+            <div class="card-header">
+                <h2>Uzm. Psk. Mehmet Öztürk</h2>
+            </div>
+            <div class="card-image placeholder-image">
+                
+            </div>
+            <div class="card-content">
+                <p><strong>Uzmanlık Alanı:</strong> Çocuk ve Ergen Psikolojisi</p>
+                <p class="education"><strong>Mezuniyet:</strong> Hacettepe Üniversitesi (Lisans)</p>
+            </div>
+        </div>
+
+        <div class="psychologist-card">
+            <div class="card-header">
+                <h2>Psk. Elif Demir</h2>
+            </div>
+            <div class="card-image placeholder-image">
+                <!-- Profil resmi veya yer tutucu simge -->
+            </div>
+            <div class="card-content">
+                <p><strong>Uzmanlık Alanı:</strong> Bilişsel Davranışçı Terapi (Bireysel)</p>
+                <p class="education"><strong>Mezuniyet:</strong> ODTÜ (Lisans), Marmara Üniversitesi (Yüksek Lisans)</p>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock content %}

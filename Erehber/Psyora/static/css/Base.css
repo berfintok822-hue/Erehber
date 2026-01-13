@@ -1,0 +1,42 @@
+/* Ortak site stilleri (bootstrap üzerine) */
+
+body {
+	background-color: #f8f9fa;
+	color: #222;
+	font-family: Inter, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+	position: relative;
+}
+
+/* İçerik okunurluğu için konteynerlere hafif yarı-şeffaf beyaz arka plan */
+main.container, .card {
+	background-color: rgba(255,255,255,0.92);
+}
+
+/* Site logo ve navbar stilleri */
+.site-logo { height: 48px; width: auto; }
+
+/* Navbar */
+header .nav .nav-link {
+	color: #333;
+	padding: .5rem 0.75rem;
+}
+header .nav .nav-link:hover {
+	color: #0d6efd;
+	text-decoration: underline;
+}
+header .btn-success {
+	background-color: #198754;
+	border-color: #198754;
+}
+
+/* Kart ve içerik stilleri */
+.card { border-radius: 8px; }
+p.lead { font-size: 1.05rem; }
+
+/* Responsive küçük ekranlarda sütunların düzeni */
+@media (max-width: 767.98px) {
+	.header-nav { display: none; } /* mobilde farklı menü kullanılacaksa buradan */
+}
+
+/* Küçük görsel ayarlar */
+.container .rounded { background-clip: padding-box; }

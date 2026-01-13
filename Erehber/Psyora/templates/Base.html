@@ -1,0 +1,122 @@
+<!doctype html>
+<html lang="tr">
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	{% load static %}
+	<title>{% block title %}Psyora{% endblock %}</title>
+
+	<!-- Temel CSS (Bootstrap + proje base CSS) -->
+	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+	<link href="{% static 'css/base.css' %}" rel="stylesheet">
+
+	{% block extra_head %}{% endblock %}
+</head>
+<body class="{% block body_class %}{% endblock %} d-flex flex-column min-vh-100">
+	<!-- Üst navbar -->
+	<header class="bg-white shadow-sm">
+		<div class="container d-flex align-items-center justify-content-between py-2">
+			<a class="d-flex align-items-center text-decoration-none" href="/">
+				<img src="{% static 'images/WhatsApp Görsel 2025-11-28 saat 21.29.51_526577d2.jpg' %}" alt="Logo" class="site-logo me-2">
+				<div>
+					<span class="h5 mb-0">Psyora</span><br>
+					<small class="text-muted">Psikolojik Danışmanlık & Terapi</small>
+				</div>
+			</a>
+
+			<nav>
+				{% block navbar %}
+				<ul class="nav">
+					<li class="nav-item"><a class="nav-link" href="{% url 'psikologlar' %}">Psikologlar</a></li>
+					<li class="nav-item"><a class="nav-link" href="#">Hizmetler</a></li>
+					<li class="nav-item"><a class="nav-link" href="#">Online Terapi</a></li>
+					<li class="nav-item"><a class="nav-link" href="#">Sık Sorulanlar</a></li>
+					<li class="nav-item"><a class="nav-link" href="#">İletişim</a></li>
+					{% if user.is_authenticated %}
+						{% if user.is_authenticated and user.psychologist_profile %}
+							<li class="nav-item"><a class="nav-link" href="{% url 'psikolog_panel' %}">Psikolog Randevu Paneli</a></li>
+						{% endif %}
+						<li class="nav-item">
+							<a class="nav-link" href="{% url 'profil' %}">👤 {{ user.first_name|default:user.username }}</a>
+						</li>
+						<li class="nav-item"><a class="nav-link" href="{% url 'logout' %}">Çıkış</a></li>
+					{% else %}
+						<li class="nav-item"><a class="nav-link" href="{% url 'login' %}">Giriş Yap</a></li>
+						<li class="nav-item"><a class="nav-link" href="{% url 'kayit_ol' %}">Kayıt Ol</a></li>
+					{% endif %}
+					<li class="nav-item"><a class="btn btn-success ms-2" href="{% url 'randevu_al' %}">Randevu Al</a></li>
+				</ul>
+				{% endblock %}
+			</nav>
+		</div>
+	</header>
+
+	<!-- Ana içerik: üç sütunlu düzen -->
+	<main class="container my-4 flex-grow-1">
+		<div class="row">
+			<!-- Sol sütun -->
+			<aside class="col-12 col-md-3 mb-3">
+				{% block left_column %}
+				<div class="card">
+					<div class="card-body">
+						<h6 class="card-title">Terapi Alanları</h6>
+						<ul class="list-unstyled mb-0">
+							<li><a href="#" class="small">Bireysel Terapi</a></li>
+							<li><a href="#" class="small">Aile & Çift Terapisi</a></li>
+							<li><a href="#" class="small">Çocuk ve Ergen Danışmanlığı</a></li>
+							<li><a href="#" class="small">Kaygı Bozuklukları</a></li>
+							<li><a href="#" class="small">Depresyon</a></li>
+						</ul>
+					</div>
+				</div>
+				{% endblock %}
+			</aside>
+
+			<!-- Orta ana içerik -->
+			<section class="col-12 col-md-6 mb-3">
+				{% block content %}
+				<!-- Ana içerik buraya gelecek -->
+				{% endblock %}
+			</section>
+
+			<!-- Sağ sütun -->
+			<aside class="col-12 col-md-3 mb-3">
+				{% block right_column %}
+				<div class="card">
+					<div class="card-body">
+						<h6 class="card-title">Hızlı Randevu</h6>
+						<p class="small text-muted">Size uygun bir psikolog seçip hemen randevu oluşturun.</p>
+						<a class="btn btn-outline-primary btn-sm" href="{% url 'randevu_al' %}">Randevu Oluştur</a>
+					</div>
+				</div>
+
+				<div class="card mt-3">
+					<div class="card-body">
+						<h6 class="card-title">Blog</h6>
+						<p class="small text-muted">Psikoloji ve mental sağlık üzerine yazılar.</p>
+						<a class="btn btn-outline-secondary btn-sm" href="#">Blogu Görüntüle</a>
+					</div>
+				</div>
+				{% endblock %}
+			</aside>
+		</div>
+	</main>
+
+	<!-- Footer -->
+	<footer class="bg-light py-4 mt-auto">
+		<div class="container d-flex justify-content-between">
+			{% block footer %}
+			<small class="text-muted">© {% now "Y" %} Psyora. Tüm hakları saklıdır.</small>
+			<div>
+				<a href="#" class="me-2 text-muted">info@psyora.com</a>
+				<span class="text-muted">0(850) 555 55 55</span>
+			</div>
+			{% endblock %}
+		</div>
+	</footer>
+
+	<!-- Temel JS -->
+	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+	{% block extra_scripts %}{% endblock %}
+</body>
+</html>

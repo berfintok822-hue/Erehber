@@ -1,0 +1,43 @@
+{% extends "Base.html" %}
+
+{% block title %}Psikolog Paneli - Psyora{% endblock %}
+
+{% block content %}
+<div class="container mt-4">
+    <h2>Psikolog Paneli</h2>
+    <p>Hoş geldiniz, <strong>{{ request.user.get_full_name|default:request.user.username }}</strong></p>
+
+    {% if randevular %}
+        <div class="list-group">
+            {% for r in randevular %}
+                <div class="list-group-item mb-2">
+                    <div class="d-flex justify-content-between">
+                        <div>
+                            <h5>{{ r.fullname }}</h5>
+                            <p class="mb-1 small text-muted">{{ r.email }} • {{ r.phone }}</p>
+                            <p class="mb-1">{{ r.message }}</p>
+                            <p class="mb-1"><strong>Tarih:</strong> {{ r.date|date:"d.m.Y" }} <strong>Saat:</strong> {{ r.time|time:"H:i" }}</p>
+                        </div>
+                        <div class="text-end">
+                            <form method="post" action="{% url 'randevu_durum_guncelle' r.pk %}">
+                                {% csrf_token %}
+                                <div class="mb-2">
+                                    <select name="status" class="form-select form-select-sm">
+                                        <option value="pending" {% if r.status == 'pending' %}selected{% endif %}>Beklemede</option>
+                                        <option value="confirmed" {% if r.status == 'confirmed' %}selected{% endif %}>Onaylandı</option>
+                                        <option value="completed" {% if r.status == 'completed' %}selected{% endif %}>Tamamlandı</option>
+                                        <option value="cancelled" {% if r.status == 'cancelled' %}selected{% endif %}>İptal</option>
+                                    </select>
+                                </div>
+                                <button class="btn btn-sm btn-primary" type="submit">Güncelle</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    {% else %}
+        <div class="alert alert-info">Henüz size atanmış bir randevu yok.</div>
+    {% endif %}
+</div>
+{% endblock %}

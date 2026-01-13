@@ -1,0 +1,109 @@
+/* Ana Sayfa Başlığı */
+.page-title {
+    text-align: center;
+    margin-top: 30px;
+    margin-bottom: 20px;
+    color: #007bff; /* Mavi tonu */
+}
+
+/* Çalışma Saatleri */
+.working-hours {
+    text-align: center;
+    margin-bottom: 40px;
+    padding: 10px;
+    border-bottom: 1px solid #ddd;
+}
+
+/* Kartların Kapsayıcısı (Grid düzeni ile responsive yapı) */
+.psychologist-cards {
+    display: grid; /* Grid düzeni kullan */
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); /* Kart genişliği en az 300px, ekran genişliğine göre ayarlanır */
+    gap: 30px; /* Kartlar arasındaki boşluk (hem yatay hem dikey) */
+    justify-content: center; /* Kartları yatayda merkezle */
+    padding: 20px;
+    overflow-x: auto; /* Eğer ekran dar ise yatay kaydırma ekle */
+}
+
+/* Tek Bir Psikolog Kartı */
+.psychologist-card {
+    background-color: #ba55d3; /* Neon lila arka plan rengi */
+    border: 1px solid #9c4dcc; /* Daha koyu bir lila tonu */
+    border-radius: 12px;
+    width: 100%; /* Kart genişliği kapsayıcıya göre ayarlanır */
+    max-width: 100%; /* Kart genişliği kapsayıcıya göre sınırlandırılır */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    overflow: hidden; /* Taşmaları gizle */
+    transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+    cursor: pointer;
+    margin-bottom: 20px; /* Kartların altında boşluk bırak */
+}
+
+/* İstenen Animasyon: İmleç üzerine geldiğinde kartın büyümesi ve neon parlama efekti */
+.psychologist-card:hover {
+    transform: scale(1.05); /* Kartı %5 büyüt */
+    box-shadow: 0 0 20px 5px rgba(186, 85, 211, 0.8); /* Neon lila parlama efekti */
+}
+
+/* Kart Başlığı (İsimler) */
+.card-header {
+    background-color: #9c4dcc; /* Daha koyu bir lila tonu */
+    color: white;
+    padding: 15px 10px;
+    text-align: center;
+    font-size: 1.2em;
+    text-transform: uppercase; /* Başlıkları büyük harf yap */
+}
+
+/* Kart Görsel Alanı (Yer Tutucu Profil Görünümü) */
+.card-image {
+    width: 100%;
+    height: 250px; /* Görselin yüksekliği */
+    background-color: #f0f0f0; /* Profil resmi olmayan yerin rengi */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    overflow: hidden;
+}
+
+/* Yer Tutucu Profil Görünümü (Profil Resmi Olmayan Simge) */
+.placeholder-image::before {
+    content: '👤'; /* Unicode kullanıcı simgesi */
+    font-size: 80px;
+    color: #ffffff; /* Beyaz simge rengi */
+    line-height: 1;
+}
+
+/* Kart İçeriği (Uzmanlık ve Mezuniyet) */
+.card-content {
+    padding: 15px;
+    text-align: left;
+    background-color: #ffffff; /* Kart içeriği için beyaz arka plan */
+    border-top: 1px solid #e0e0e0; /* İçerik üst sınırı */
+}
+
+.card-content p {
+    margin: 8px 0;
+    line-height: 1.4;
+}
+
+.card-content strong {
+    color: #333;
+}
+
+.card-content .education {
+    font-size: 0.9em;
+    color: #555;
+}
+
+/* Yeni Bilgi Alanları */
+.card-content .experience {
+    font-size: 0.9em;
+    color: #666;
+}
+
+.card-content .contact {
+    font-size: 0.9em;
+    color: #444;
+    margin-top: 10px;
+}

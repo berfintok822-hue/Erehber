@@ -1,0 +1,22 @@
+/* Home sayfasına özel arkaplan (sadece .page-bg sınıfı verildiğinde aktif olur) */
+
+.page-bg::before {
+	content: "";
+	position: fixed;
+	inset: 0;
+	z-index: -1;
+	pointer-events: none;
+	/* Mutlak static yolu kullanılıyor; dosya adındaki boşluk ve "ö" yüzde kodlandı */
+	background-image:
+	  url("/static/images/WhatsApp%20G%C3%B6rsel%202025-11-28%20saat%2021.29.51_526577d2.jpg");
+	 
+	background-repeat: no-repeat;
+	background-position: left center;
+	background-size: cover;
+	opacity: 0.18;
+	filter: grayscale(20%) blur(1px) brightness(0.8);
+	transform: translateZ(0);
+}
+
+/* Eğer isterseniz daha güvenli bir alternatif: dosya adını "background.jpg" yapıp
+   background-image: url("/static/images/background.jpg"); kullanın. */

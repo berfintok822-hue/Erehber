@@ -1,0 +1,158 @@
+{% extends "Base.html" %}
+{% load static %}
+
+{% block title %}Randevularım - Psyora{% endblock %}
+
+{% block extra_head %}
+<link href="{% static 'static/Randevu.css' %}" rel="stylesheet">
+<style>
+    .randevu-kartı {
+        border-left: 4px solid #007bff;
+        padding: 15px;
+        margin-bottom: 15px;
+        background-color: #f8f9fa;
+        border-radius: 4px;
+    }
+    .randevu-kartı.beklemede {
+        border-left-color: #ffc107;
+    }
+    .randevu-kartı.onaylandı {
+        border-left-color: #28a745;
+    }
+    .randevu-kartı.tamamlandı {
+        border-left-color: #17a2b8;
+    }
+    .randevu-kartı.iptal {
+        border-left-color: #dc3545;
+    }
+    .status-badge {
+        display: inline-block;
+        padding: 5px 10px;
+        border-radius: 20px;
+        font-size: 12px;
+        font-weight: bold;
+    }
+    .status-pending {
+        background-color: #fff3cd;
+        color: #856404;
+    }
+    .status-confirmed {
+        background-color: #d4edda;
+        color: #155724;
+    }
+    .status-completed {
+        background-color: #d1ecf1;
+        color: #0c5460;
+    }
+    .status-cancelled {
+        background-color: #f8d7da;
+        color: #721c24;
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="container mt-4">
+    <h2 class="mb-4">Randevularım</h2>
+
+    {% if messages %}
+        {% for message in messages %}
+            <div class="alert alert-{{ message.tags }} alert-dismissible fade show" role="alert">
+                {{ message }}
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+        {% endfor %}
+    {% endif %}
+
+    {% if randevular %}
+        <div class="row mb-4">
+            <div class="col-md-3">
+                <div class="card text-center">
+                    <div class="card-body">
+                        <h5 class="card-title">Toplam</h5>
+                        <p class="card-text" style="font-size: 24px; color: #007bff;">{{ randevular|length }}</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="card text-center">
+                    <div class="card-body">
+                        <h5 class="card-title">Beklemede</h5>
+                        <p class="card-text" style="font-size: 24px; color: #ffc107;">
+                            {{ randevular|dictsort:"status"|length }}
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="card text-center">
+                    <div class="card-body">
+                        <h5 class="card-title">Onaylandı</h5>
+                        <p class="card-text" style="font-size: 24px; color: #28a745;">
+                            {{ randevular|dictsort:"status"|length }}
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="card text-center">
+                    <div class="card-body">
+                        <h5 class="card-title">Tamamlandı</h5>
+                        <p class="card-text" style="font-size: 24px; color: #17a2b8;">
+                            {{ randevular|dictsort:"status"|length }}
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        {% for randevu in randevular %}
+            <div class="randevu-kartı {{ randevu.status }}">
+                <div class="d-flex justify-content-between align-items-start mb-2">
+                    <div>
+                        <h5 class="mb-1">{{ randevu.fullname }}</h5>
+                        <p class="mb-1 text-muted">
+                            <strong>Psikolog:</strong> {{ randevu.psychologist }}
+                        </p>
+                    </div>
+                    <span class="status-badge status-{{ randevu.status }}">
+                        {% if randevu.status == 'pending' %}
+                            Beklemede
+                        {% elif randevu.status == 'confirmed' %}
+                            Onaylandı
+                        {% elif randevu.status == 'completed' %}
+                            Tamamlandı
+                        {% else %}
+                            İptal Edildi
+                        {% endif %}
+                    </span>
+                </div>
+                <p class="mb-1">
+                    <strong>📅 Tarih:</strong> {{ randevu.date|date:"d.m.Y" }} 
+                    <strong>⏰ Saat:</strong> {{ randevu.time|time:"H:i" }}
+                </p>
+                <p class="mb-1">
+                    <strong>📧 E-posta:</strong> {{ randevu.email }}
+                </p>
+                <p class="mb-1">
+                    <strong>📱 Telefon:</strong> {{ randevu.phone }}
+                </p>
+                {% if randevu.message %}
+                <p class="mb-1">
+                    <strong>📝 Not:</strong> {{ randevu.message }}
+                </p>
+                {% endif %}
+                <p class="mb-0 text-muted small">
+                    <strong>Oluşturulma:</strong> {{ randevu.created_at|date:"d.m.Y H:i" }}
+                </p>
+            </div>
+        {% endfor %}
+    {% else %}
+        <div class="alert alert-info">
+            <p class="mb-0">Henüz randevu almadınız. <a href="{% url 'randevu_al' %}">Yeni randevu oluşturmak için tıklayın.</a></p>
+        </div>
+    {% endif %}
+
+    <a href="{% url 'randevu_al' %}" class="btn btn-primary mt-3">Yeni Randevu Oluştur</a>
+</div>
+{% endblock %}
